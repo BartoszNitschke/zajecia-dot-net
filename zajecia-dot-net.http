@@ -1,0 +1,59 @@
+@zajecia_dot_net_HostAddress = http://localhost:5209
+
+### Obiekty sportowe — lista
+GET {{zajecia_dot_net_HostAddress}}/api/sportsfacilities
+Accept: application/json
+
+### Obiekt sportowy — szczegóły (użyj ID z listy)
+GET {{zajecia_dot_net_HostAddress}}/api/sportsfacilities/1
+Accept: application/json
+
+### Obiekt sportowy — utworzenie
+POST {{zajecia_dot_net_HostAddress}}/api/sportsfacilities
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Kort tenisowy 3",
+  "sportType": "Tenis",
+  "address": "ul. Sportowa 3, Warszawa",
+  "hourlyRate": 90
+}
+
+### Rezerwacje — lista
+GET {{zajecia_dot_net_HostAddress}}/api/reservations
+Accept: application/json
+
+### Rezerwacja — szczegóły (użyj ID z listy)
+GET {{zajecia_dot_net_HostAddress}}/api/reservations/1
+Accept: application/json
+
+### Rezerwacja — utworzenie (dostosuj termin, jeśli pokrywa się z inną rezerwacją)
+POST {{zajecia_dot_net_HostAddress}}/api/reservations
+Accept: application/json
+Content-Type: application/json
+
+{
+  "sportsFacilityId": 1,
+  "customerName": "Jan Kowalski",
+  "startTime": "2027-06-01T10:00:00+02:00",
+  "endTime": "2027-06-01T11:00:00+02:00"
+}
+
+### Nieistniejący obiekt — oczekiwane 404
+GET {{zajecia_dot_net_HostAddress}}/api/sportsfacilities/9999
+Accept: application/json
+
+### Nieprawidłowa cena — oczekiwane 400
+POST {{zajecia_dot_net_HostAddress}}/api/sportsfacilities
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Nieprawidłowy obiekt",
+  "sportType": "Tenis",
+  "address": "Warszawa",
+  "hourlyRate": 0
+}
+
+###
